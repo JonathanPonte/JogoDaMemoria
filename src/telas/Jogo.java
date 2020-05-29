@@ -3,11 +3,13 @@ package telas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
+
 
 import modelo.Peca;
 
@@ -216,7 +218,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn1);
+						click(btn1, pecas);
 
 						return null;
 					}
@@ -231,7 +233,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn2);
+						click(btn2, pecas);
 
 						return null;
 					}
@@ -246,7 +248,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn3);
+						click(btn3, pecas);
 
 						return null;
 					}
@@ -261,7 +263,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn4);
+						click(btn4, pecas);
 
 						return null;
 					}
@@ -276,7 +278,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn5);
+						click(btn5, pecas);
 
 						return null;
 					}
@@ -291,7 +293,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn6);
+						click(btn6, pecas);
 
 						return null;
 					}
@@ -306,7 +308,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn7);
+						click(btn7, pecas);
 
 						return null;
 					}
@@ -321,7 +323,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn8);
+						click(btn8, pecas);
 
 						return null;
 					}
@@ -336,7 +338,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn9);
+						click(btn9, pecas);
 
 						return null;
 					}
@@ -351,7 +353,7 @@ public class Jogo extends JFrame {
 					@Override
 					protected Object doInBackground() throws Exception {
 
-						click(btn10);
+						click(btn10, pecas);
 
 						return null;
 					}
@@ -361,11 +363,11 @@ public class Jogo extends JFrame {
 		});
 	}
 
-	public void click(JButton botao) {
+	public void click(JButton botao, ArrayList<Peca> pecas) {
 
-		Peca pecaClicado1 = existClicado();
-		Peca pecaClicado2 = getPeca(botao);
-
+		Peca pecaClicado1 = existClicado(pecas);
+		Peca pecaClicado2 = getPeca(botao, pecas);
+		
 		if (!pecaClicado2.getIsClidado()) {
 			if (pecaClicado1 != null) {
 
@@ -379,6 +381,8 @@ public class Jogo extends JFrame {
 
 				if (pecaClicado1.getImagem() == pecaClicado2.getImagem()) {
 					pecaClicado2.getBotao().setIcon(pecaClicado2.getImagem());
+					pecaClicado1.setAchouPar(true);
+					pecaClicado2.setAchouPar(true);
 					pecas.remove(pecaClicado1);
 					pecas.remove(pecaClicado2);
 
@@ -398,7 +402,7 @@ public class Jogo extends JFrame {
 
 	}
 
-	public Peca existClicado() {
+	public Peca existClicado(ArrayList<Peca> pecas) {
 
 		for (Peca peca : pecas) {
 
@@ -410,7 +414,7 @@ public class Jogo extends JFrame {
 		return null;
 	}
 
-	public Peca getPeca(JButton button) {
+	public Peca getPeca(JButton button, ArrayList<Peca> pecas) {
 		for (Peca peca : pecas) {
 
 			if (peca.getBotao() == button) {
